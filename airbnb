@@ -1,0 +1,101 @@
+CREATE TABLE evankane.airbnb
+(
+    room_id bigint NOT NULL,
+	survey_id integer,
+    host_id integer,
+    room_type text COLLATE pg_catalog."default",
+	country text COLLATE pg_catalog."default",
+	city text COLLATE pg_catalog."default",
+	borough text COLLATE pg_catalog."default",
+    neighborhood text COLLATE pg_catalog."default",
+    reviews integer,
+    overall_satisfaction real,
+    accommodates integer,
+    bedrooms real,
+    bathrooms real,
+    price integer,
+    minstay integer,
+    name text COLLATE pg_catalog."default",
+    created_date timestamp with time zone,
+	latitude float8,
+	longitude float8,
+	location text COLLATE pg_catalog."default",
+    CONSTRAINT airbnb_pkey PRIMARY KEY (room_id)
+)
+select count (*)
+from evankane.airbnb
+
+select *
+From evankane.airbnb
+
+SELECT
+	MAX (price) as maximum_price
+FROM evankane.airbnb
+
+SELECT
+	MIN (price) as minimum_price
+FROM evankane.airbnb
+
+SELECT
+	SUM (bedrooms) AS total_bedrooms
+From evankane.airbnb
+WHERE (neighborhood) = 'Girdwood'
+
+SELECT
+	COUNT (room_id) as number_of_rooms
+FROM evankane.airbnb
+WHERE (neighborhood) = 'Girdwood'
+
+SELECT
+	ROUND(AVG (reviews),2) as average_review
+FROM evankane.airbnb
+
+SELECT 
+DISTINCT (overall_satisfaction)
+FROM evankane.airbnb 
+ORDER BY (overall_satisfaction)
+
+SELECT
+	AVG (overall_satisfaction) as avg_overall_satisfaction
+FROM evankane.airbnb
+WHERE overall_satisfaction > 0
+
+-- average and max price by room type and accommodates in Gridwood neighborhood
+
+SELECT
+	room_type,
+	accommodates,
+	ROUND(AVG(price),2) AS average_price,
+	MAX(price) AS max_price
+FROM evankane.airbnb
+WHERE neighborhood = 'Girdwood'
+GROUP BY
+	room_type,
+	accommodates
+ORDER BY
+	room_type,
+	accommodates
+
+
+-- HIGHEST REVIEW FOR NEIGHBORHOOD BY NEIGHBORHOOD SORTED BY MAX REVIEW
+
+SELECT
+	neighborhood,
+	max (reviews) as highest_review
+FROM evankane.airbnb
+GROUP BY
+	neighborhood
+ORDER BY
+	max(reviews) desc
+	
+	
+
+
+
+
+
+
+	
+
+
+

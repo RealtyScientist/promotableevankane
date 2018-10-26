@@ -1,0 +1,18 @@
+CREATE TABLE evankane.meryl_streep as (
+SELECT *,
+CASE
+	WHEN name = 'Meryl Streep'
+		THEN 1 ELSE 0
+	END as Meryl_Streep
+FROM evankane.movies)
+
+SELECT *
+FROM evankane.meryl_streep
+WHERE meryl_streep = 1
+
+CREATE TABLE evankane.oscars as (
+SELECT *,
+	CONCAT(name, ' ', movie) as name_and_movie
+FROM evankane.movies)
+
+SELECT * FROM evankane.oscars

@@ -1,0 +1,95 @@
+SELECT
+	DISTINCT room_id,
+	created_date
+FROM evankane.airbnb
+WHERE DATE_PART('month',created_date) = 2
+ORDER BY created_date
+
+NOW() -- current date
+
+SELECT
+	room_id,
+	date_part('day', now() - created_date) as days_difference,
+	created_date,
+	now() as curr_date
+FROM evankane.airbnb
+ORDER BY days_difference
+
+SELECT
+	room_id,
+	name
+FROM evankane.airbnb
+WHERE name LIKE '%cozy%';
+
+SELECT
+	UPPER(room_type) AS room_type,
+	UPPER(neighborhood) AS neighborhood
+FROM evankane.airbnb;
+
+SELECT 
+	LEFT(name, 50) AS name
+FROM evankane.airbnb
+WHERE (neighborhood) = 'Girdwood'
+
+CREATE DATABASE dbtest
+
+DROP DATABASE dbtest
+
+--Show all columns in airbnb
+SELECT table_name, column_name
+FROM information_schema.columns
+WHERE table_schema = 'evankane'
+  AND table_name   = 'airbnb'
+  
+-- Create table from query 
+
+CREATE TABLE evankane.airbnb_subset as (
+SELECT
+	room_id,
+	room_type,
+	name
+From evankane.airbnb
+WHERE neighborhood = 'Sand Lake' or neighborhood = 'Hillside East')
+
+DROP TABLE evankane.airbnb_2_3_bed 
+
+CREATE TABLE evankane.airbnb_2_3_bed as (
+SELECT 
+	room_id,
+	room_type,
+	neighborhood,
+	price
+FROM evankane.airbnb
+WHERE bedrooms = 3)
+
+-- Insert into above table
+INSERT INTO evankane.airbnb_2_3_bed (
+SELECT
+	room_id,
+	room_type,
+	neighborhood,
+	price
+FROM evankane.airbnb
+WHERE bedrooms = 2)
+
+SELECT
+ COUNT (*)
+FROM evankane.airbnb_2_3_bed
+
+DROP TABLE evankane.movies
+
+CREATE TABLE evankane.movies (
+    year INT,
+    ceremony INT,
+    award VARCHAR(300),
+    winner VARCHAR(1),
+    name VARCHAR(300),
+    movie VARCHAR(300))
+				  
+SELECT 
+	DISTINCT movie
+FROM evankane.movies
+				  
+SELECT *
+FROM evankane.movies
+WHERE award = 'Best Picture'

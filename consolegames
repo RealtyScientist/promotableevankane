@@ -1,0 +1,51 @@
+DROP TABLE evankane.consolegames
+
+CREATE TABLE evankane.consolegames (
+	rank int,
+	name text,
+	platform text,
+	year int,
+	genre text,
+	publisher text,
+	na_sales float(2),
+	eu_sales float (2),
+	jp_sales float (2),
+	other_sales float (2),
+	PRIMARY KEY (name, platform)
+);
+
+CREATE TABLE evankane.consoledates (
+	platform text,
+	firstretailavailability date,
+	discontinued date,
+	unitssoldmillions float(2),
+	comment text,
+	PRIMARY KEY (platform));
+				 
+select count (*)
+from evankane.consolegames
+				 
+select count (*)
+from evankane.consoledates
+				 
+SELECT
+	name,
+	platform,
+SUM(na_sales + eu_sales + jp_sales + other_sales) as total_sales
+FROM evankane.consolegames
+WHERE (na_sales) is not null and eu_sales is not null and jp_sales is not null and other_sales is not null				 
+GROUP BY name,
+		platform
+ORDER BY 
+	total_sales desc
+				 
+				 
+SELECT
+	name,
+SUM (na_sales + eu_sales + jp_sales + other_sales) as total_sales
+FROM evankane.consolegames
+WHERE (na_sales) is not null and eu_sales is not null and jp_sales is not null and other_sales is not null				 
+GROUP BY name
+ORDER BY 
+	total_sales desc				 
+				 

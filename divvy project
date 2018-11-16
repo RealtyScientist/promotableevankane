@@ -1,0 +1,52 @@
+truncate table evankane.divvy_stations
+select * from evankane.promotable_divvy limit 100
+
+SELECT COUNT(*) FROM evankane.promotable_divvy;
+
+CREATE TABLE evankane.divvy_stations(
+ID INT,
+NAME TEXT,
+CITY TEXT,
+LATITUDE FLOAT,
+LONGITUDE FLOAT,
+DPCAPACITY INT,
+ONLINE_DATE TIMESTAMPTZ,
+PRIMARY KEY(ID));
+			
+INSERT INTO evankane.divvy_stations(
+select *
+from evankane.divvy_stations_1
+
+union
+
+SELECT divvy_stations_2.*
+from evankane.divvy_stations_2
+LEFT JOIN evankane.divvy_stations_1
+	on divvy_stations_2.id = divvy_stations_1.id
+WHERE divvy_stations_1.id is null)
+			
+SELECT COUNT(*) FROM evankane.divvy_stations;
+			
+SELECT EXTRACT(hour from start_time) AS start_hour,
+			COUNT (trip_id) as number_of_trips
+FROM evankane.promotable_divvy
+GROUP BY start_hour
+ORDER BY number_of_trips DESC
+
+DROP TABLE evankane.promotable_divvy;			
+CREATE TABLE evankane.promotable_divvy
+(
+    trip_id integer,
+    start_time TIMESTAMP,
+    end_time TIMESTAMP,
+    bikeid integer,
+    tripduration integer,
+    from_station_id integer,
+    from_station_name character varying,
+    to_station_id integer,
+    to_station_name character varying,
+    usertype text,
+    gender text,
+    birthyear text,
+    PRIMARY KEY (trip_id)
+);
